@@ -19,11 +19,13 @@ const {
   CodeSherpa,
   StructuredSD,
   StructuredACS,
+  StructuredACSV,  
   CodeSherpaTools,
   TraversaalSearch,
   StructuredWolfram,
   TavilySearchResults,
 } = require('../');
+const AzureAISearchVector = require('../structured/AzureAISearchVector')
 const { loadToolSuite } = require('./loadToolSuite');
 const { loadSpecs } = require('./loadSpecs');
 const { logger } = require('~/config');
@@ -165,6 +167,7 @@ const loadTools = async ({
     'dall-e': OpenAICreateImage,
     'stable-diffusion': functions ? StructuredSD : StableDiffusionAPI,
     'azure-ai-search': functions ? StructuredACS : AzureAISearch,
+    'azure-ai-search-vector': functions ? StructuredACSV : AzureAISearchVector,
     CodeBrew: CodeBrew,
     traversaal_search: TraversaalSearch,
   };

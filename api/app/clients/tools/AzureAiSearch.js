@@ -6,7 +6,8 @@ const { logger } = require('~/config');
 class AzureAISearch extends StructuredTool {
   // Constants for default values
   static DEFAULT_API_VERSION = '2023-11-01';
-  static DEFAULT_QUERY_TYPE = 'simple';
+  //static DEFAULT_QUERY_TYPE = 'simple';
+  static DEFAULT_QUERY_TYPE = 'full';
   static DEFAULT_TOP = 5;
 
   // Helper function for initializing properties

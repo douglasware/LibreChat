@@ -14,6 +14,7 @@ const E2BTools = require('./structured/E2BTools');
 const CodeSherpa = require('./structured/CodeSherpa');
 const StructuredSD = require('./structured/StableDiffusion');
 const StructuredACS = require('./structured/AzureAISearch');
+const StructuredACSV = require('./structured/AzureAISearchVector');
 const CodeSherpaTools = require('./structured/CodeSherpaTools');
 const GoogleSearchAPI = require('./structured/GoogleSearch');
 const StructuredWolfram = require('./structured/Wolfram');
@@ -37,6 +38,7 @@ module.exports = {
   CodeSherpa,
   StructuredSD,
   StructuredACS,
+  StructuredACSV,  
   CodeSherpaTools,
   StructuredWolfram,
   TavilySearchResults,
