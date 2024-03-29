@@ -15,6 +15,7 @@ const CodeSherpa = require('./structured/CodeSherpa');
 const StructuredSD = require('./structured/StableDiffusion');
 const StructuredACS = require('./structured/AzureAISearch');
 const StructuredACSV = require('./structured/AzureAISearchVector');
+const TariffExpert = require('./structured/TariffExpert');
 const CodeSherpaTools = require('./structured/CodeSherpaTools');
 const GoogleSearchAPI = require('./structured/GoogleSearch');
 const StructuredWolfram = require('./structured/Wolfram');
@@ -38,7 +39,8 @@ module.exports = {
   CodeSherpa,
   StructuredSD,
   StructuredACS,
-  StructuredACSV,  
+  StructuredACSV,
+  TariffExpert,
   CodeSherpaTools,
   StructuredWolfram,
   TavilySearchResults,

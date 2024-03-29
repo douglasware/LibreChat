@@ -19,13 +19,14 @@ const {
   CodeSherpa,
   StructuredSD,
   StructuredACS,
-  StructuredACSV,  
+  StructuredACSV,
   CodeSherpaTools,
   TraversaalSearch,
   StructuredWolfram,
   TavilySearchResults,
 } = require('../');
-const AzureAISearchVector = require('../structured/AzureAISearchVector')
+const AzureAISearchVector = require('../structured/AzureAISearchVector');
+const TariffExpert = require('../structured/TariffExpert');
 const { loadToolSuite } = require('./loadToolSuite');
 const { loadSpecs } = require('./loadSpecs');
 const { logger } = require('~/config');
@@ -168,6 +169,7 @@ const loadTools = async ({
     'stable-diffusion': functions ? StructuredSD : StableDiffusionAPI,
     'azure-ai-search': functions ? StructuredACS : AzureAISearch,
     'azure-ai-search-vector': functions ? StructuredACSV : AzureAISearchVector,
+    'ask-about-tariffs': TariffExpert,
     CodeBrew: CodeBrew,
     traversaal_search: TraversaalSearch,
   };
