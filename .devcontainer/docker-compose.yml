@@ -8,7 +8,7 @@ services:
     # restart: always
     links:
       - mongodb
-      - meilisearch
+#      - meilisearch
     # ports:
     #   - 3080:3080               # Change it to 9000:3080 to use nginx
     extra_hosts: # if you are running APIs on docker you need access to, you will need to uncomment this line and next
@@ -24,7 +24,7 @@ services:
       - MONGO_URI=mongodb://mongodb:27017/LibreChat
       # - CHATGPT_REVERSE_PROXY=http://host.docker.internal:8080/api/conversation # if you are hosting your own chatgpt reverse proxy with docker
       # - OPENAI_REVERSE_PROXY=http://host.docker.internal:8070/v1/chat/completions # if you are hosting your own chatgpt reverse proxy with docker
-      - MEILI_HOST=http://meilisearch:7700
+ #     - MEILI_HOST=http://meilisearch:7700
 
     # Runs app on the same network as the service container, allows "forwardPorts" in devcontainer.json function.
     # network_mode: service:another-service
@@ -49,16 +49,6 @@ services:
     volumes:
       - ./data-node:/data/db
     command: mongod --noauth
-  meilisearch:
-    container_name: chat-meilisearch
-    image: getmeili/meilisearch:v1.6
-    restart: always
-    user: "${UID}:${GID}"
-    environment:
-      - MEILI_HOST=http://meilisearch:7700
-      - MEILI_NO_ANALYTICS=true
-    volumes:
-      - ./meili_data_v1.6:/meili_data
   mongo-express:
     image: mongo-express
     container_name: mongo-express
