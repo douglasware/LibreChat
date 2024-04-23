@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { memo, useCallback, useRef, useMemo } from 'react';
 import {
   supportsFiles,
+  EModelEndpoint,
   mergeFileConfig,
   fileConfig as defaultFileConfig,
-  EModelEndpoint,
 } from 'librechat-data-provider';
 import { useChatContext, useAssistantsMapContext } from '~/Providers';
 import { useRequiresKey, useTextarea } from '~/hooks';
@@ -13,6 +13,7 @@ import { TextareaAutosize } from '~/components/ui';
 import { useGetFileConfig } from '~/data-provider';
 import { cn, removeFocusOutlines } from '~/utils';
 import AttachFile from './Files/AttachFile';
+import { mainTextareaId } from '~/common';
 import StopButton from './StopButton';
 import SendButton from './SendButton';
 import FileRow from './Files/FileRow';
@@ -28,14 +29,11 @@ const ChatForm = ({ index = 0 }) => {
     defaultValues: { text: '' },
   });
 
-  const { handlePaste, handleKeyUp, handleKeyDown, handleCompositionStart, handleCompositionEnd } =
-    useTextarea({
-      textAreaRef,
-      submitButtonRef,
-      disabled: !!requiresKey,
-      setValue: methods.setValue,
-      getValues: methods.getValues,
-    });
+  const { handlePaste, handleKeyDown, handleCompositionStart, handleCompositionEnd } = useTextarea({
+    textAreaRef,
+    submitButtonRef,
+    disabled: !!requiresKey,
+  });
 
   const {
     ask,
@@ -43,9 +41,9 @@ const ChatForm = ({ index = 0 }) => {
     setFiles,
     conversation,
     isSubmitting,
-    handleStopGenerating,
     filesLoading,
     setFilesLoading,
+    handleStopGenerating,
   } = useChatContext();
 
   const assistantMap = useAssistantsMapContext();
@@ -57,7 +55,6 @@ const ChatForm = ({ index = 0 }) => {
       }
       ask({ text: data.text });
       methods.reset();
-      textAreaRef.current?.setRangeText('', 0, data.text.length, 'end');
     },
     [ask, methods],
   );
@@ -81,6 +78,13 @@ const ChatForm = ({ index = 0 }) => {
     [requiresKey, invalidAssistant],
   );
 
+  const { ref, ...registerProps } = methods.register('text', {
+    required: true,
+    onChange: (e) => {
+      methods.setValue('text', e.target.value);
+    },
+  });
+
   return (
     <form
       onSubmit={methods.handleSubmit((data) => submitMessage(data))}
@@ -101,23 +105,18 @@ const ChatForm = ({ index = 0 }) => {
             />
             {endpoint && (
               <TextareaAutosize
-                {...methods.register('text', {
-                  required: true,
-                  onChange: (e) => {
-                    methods.setValue('text', e.target.value);
-                  },
-                })}
+                {...registerProps}
                 autoFocus
                 ref={(e) => {
+                  ref(e);
                   textAreaRef.current = e;
                 }}
                 disabled={disableInputs}
                 onPaste={handlePaste}
-                onKeyUp={handleKeyUp}
                 onKeyDown={handleKeyDown}
                 onCompositionStart={handleCompositionStart}
                 onCompositionEnd={handleCompositionEnd}
-                id="prompt-textarea"
+                id={mainTextareaId}
                 tabIndex={0}
                 data-testid="text-input"
                 style={{ height: 44, overflowY: 'auto' }}
