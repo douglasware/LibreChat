@@ -9,7 +9,7 @@ async function withSession(method, ...args) {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const result = await method(...args, session);
+    const result = await method(...args);
     await session.commitTransaction();
     return result;
   } catch (error) {

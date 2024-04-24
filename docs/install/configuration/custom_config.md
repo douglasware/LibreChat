@@ -20,8 +20,6 @@ Future updates will streamline configuration further by migrating some settings 
 
 Stay tuned for ongoing enhancements to customize your LibreChat instance!
 
-> Note: To verify your YAML config, you can use online tools like [yamlchecker.com](https://yamlchecker.com/)
-
 **Note:** To verify your YAML config, you can use online tools like [yamlchecker.com](https://yamlchecker.com/)
 
 ## Compatible Endpoints
@@ -202,6 +200,19 @@ This example configuration file sets up LibreChat with detailed options across s
 - **Type**: String = "local" | ["firebase"](../../features/firebase.md)
 - **Description**: Determines where to save user uploaded/generated files. Defaults to `"local"` if omitted.
 - **Example**: `fileStrategy: "firebase"`
+
+### Image Links
+- **Key**: `secureImageLinks`
+- **Type**: Boolean
+- **Description**: Whether or not to secure access to image links that are hosted locally by the app. Default: false.
+- **Example**: `secureImageLinks: true`
+
+### Image Output Type
+- **Key**: `imageOutputType`
+- **Type**: String, "png" | "webp" | "jpeg"
+- **Description**: The image output type for image responses. Defaults to "png" if omitted.
+- **Note**: Case-sensitive. Google endpoint only supports "jpeg" and "png" output types.
+- **Example**: `imageOutputType: "webp"`
 
 ### File Configuration
 - **Key**: `fileConfig`
