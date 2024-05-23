@@ -212,6 +212,24 @@ async function processRequiredActions(client, requiredActions) {
     let tool = ToolMap[currentAction.tool] ?? ActionToolMap[currentAction.tool];
 
     const handleToolOutput = async (output) => {
+      try {
+        let parsedOutput = JSON.parse(output); // Attempt to parse the JSON string
+
+        if (Array.isArray(parsedOutput.value)) {
+          let contents = parsedOutput.value
+            .filter(
+              (item) =>
+                Object.prototype.hasOwnProperty.call(item, 'content') &&
+                Object.prototype.hasOwnProperty.call(item, 'contentVector'),
+            )
+            .map((item) => item.content);
+
+          output = JSON.stringify(contents); // Modify 'output' directly with the new JSON string
+        }
+        // If the structure isn't as expected, 'output' remains unchanged, no need to reassign
+      } catch (error) {
+        // If parsing fails, 'output' remains unchanged
+      }
       requiredActions[i].output = output;
 
       /** @type {FunctionToolCall & PartMetadata} */
